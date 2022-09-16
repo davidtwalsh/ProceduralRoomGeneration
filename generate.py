@@ -22,12 +22,12 @@ def generate(NUMROWS, NUMCOLS):
     endpoints.append(Endpoint(currentRow,currentCol,Room.HALLWAY,RoomLayout.VERTICAL)) 
 
     i = 0
-    while endpoints and i < 10:
+    while endpoints and i < 1:
         endpoint = endpoints.pop(0)
         roomType = endpoint.room
         if roomType == Room.HALLWAY:
                 generateHallway.generateHallway(grid,endpoint,endpoints)
 
 
-
+        i += 1
     return grid
