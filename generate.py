@@ -19,7 +19,7 @@ def generate(NUMROWS, NUMCOLS):
     endpoints = []
     e = Endpoint(currentRow,currentCol,Room.HALLWAY,RoomLayout.VERTICAL)
     e.properties.append(EndpointProperties.ISCELLHALLWAY)
-    endpoints.append(Endpoint(currentRow,currentCol,Room.HALLWAY,RoomLayout.VERTICAL)) 
+    endpoints.append(e) 
 
     i = 0
     while endpoints and i < 1:

@@ -12,6 +12,7 @@ def generateOneDirection(grid, endpoint,endpoints,length, isVertical):
     currentRow = endpoint.row
     currentCol = endpoint.col
 
+    skips = 0
     changeFactor = 0
     for i in range(length):
         if changeFactor < 0:
@@ -33,14 +34,11 @@ def generateOneDirection(grid, endpoint,endpoints,length, isVertical):
         grid[currentRow][currentCol] = Room.HALLWAY
 
         if EndpointProperties.ISCELLHALLWAY in endpoint.properties:
-            print("yyooooooo")
             if (isVertical):
-                if abs(i) % 2 == 0:
+                if i == 0 or (changeFactor > 0 and i % 4 == 0) or (changeFactor < 0 and (i+1) % 4 == 0):
                     if isInBounds(currentRow,currentCol-1,grid) and grid[currentRow][currentCol-1] == 0:
-                        print("made cell")
                         grid[currentRow][currentCol-1] = Room.CELL
                     if isInBounds(currentRow,currentCol+1,grid) and grid[currentRow][currentCol+1] == 0:
-                        print("made cell 2")
                         grid[currentRow][currentCol+1] = Room.CELL
             else:
                 if abs(i) % 2 == 0:
