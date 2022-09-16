@@ -62,7 +62,7 @@ while running:
             elif grid[row][col] == Room.HALLWAY:
                 pygame.draw.rect(screen, RoomColors.roomColors[Room.HALLWAY], pygame.Rect(col * CELLWIDTH, row * CELLWIDTH, CELLWIDTH, CELLWIDTH))
             elif grid[row][col] == Room.CELL:
-                pygame.draw.rect(screen, RoomColors.roomColors[Room.HALLWAY], pygame.Rect(col * CELLWIDTH, row * CELLWIDTH, CELLWIDTH, CELLWIDTH))
+                pygame.draw.rect(screen, RoomColors.roomColors[Room.CELL], pygame.Rect(col * CELLWIDTH, row * CELLWIDTH, CELLWIDTH, CELLWIDTH))
             
 
     ########################

@@ -24,29 +24,30 @@ def generateHallway(grid,endpoint,endpoints):
             currentRow += changeFactor
 
             if isOutOfBounds(currentRow,currentCol,grid):
-                print("here boy")
                 return
 
             if grid[currentRow][currentCol] != 0:
-                print("yooo")
                 return
 
             grid[currentRow][currentCol] = Room.HALLWAY
 
-            # if EndpointProperties.ISCELLHALLWAY in endpoint.properties:
-            #     if abs(i) % 2 == 0:
-            #         if isInBounds(currentRow,currentCol-1,grid) and grid[currentRow][currentCol-1] == Room.EMPTY:
-            #             grid[currentRow][currentCol-1] = Room.CELL
-            #         if isInBounds(currentRow,currentCol+1,grid) and grid[currentRow][currentCol+1] == Room.EMPTY:
-            #             grid[currentRow][currentCol+1] = Room.CELL
+            if EndpointProperties.ISCELLHALLWAY in endpoint.properties:
+                
+                if abs(i) % 2 == 0:
+                    if isInBounds(currentRow,currentCol-1,grid) and grid[currentRow][currentCol-1] == 0:
+                        print("made cell")
+                        grid[currentRow][currentCol-1] = Room.CELL
+                    if isInBounds(currentRow,currentCol+1,grid) and grid[currentRow][currentCol+1] == 0:
+                        print("made cell 2")
+                        grid[currentRow][currentCol+1] = Room.CELL
 
 
             if length - i <= 2:
                 e = Endpoint(currentRow + 1 * sign(changeFactor),currentCol,Room.HALLWAY,RoomLayout.HORIZONTAL)
                 endpoints.append(e)
-                # randomForCell = random.randint(1,10)
-                # if randomForCell <= 2:
-                #     e.properties.append(EndpointProperties.ISCELLHALLWAY)
+                randomForCell = random.randint(1,10)
+                if randomForCell <= 2:
+                    e.properties.append(EndpointProperties.ISCELLHALLWAY)
 
     elif endpoint.layout == RoomLayout.HORIZONTAL:
         changeFactor = 0
@@ -64,19 +65,19 @@ def generateHallway(grid,endpoint,endpoints):
                 return
             grid[currentRow][currentCol] = Room.HALLWAY
 
-            # if EndpointProperties.ISCELLHALLWAY in endpoint.properties:
-            #     if abs(i) % 2 == 0:
-            #         if isInBounds(currentRow+1,currentCol,grid) and grid[currentRow+1][currentCol] == Room.EMPTY:
-            #             grid[currentRow+1][currentCol] = Room.CELL
-            #         if isInBounds(currentRow-1,currentCol,grid) and grid[currentRow-1][currentCol] == Room.EMPTY:
-            #             grid[currentRow-1][currentCol] = Room.CELL
+            if EndpointProperties.ISCELLHALLWAY in endpoint.properties:
+                if abs(i) % 2 == 0:
+                    if isInBounds(currentRow+1,currentCol,grid) and grid[currentRow+1][currentCol] == 0:
+                        grid[currentRow+1][currentCol] = Room.CELL
+                    if isInBounds(currentRow-1,currentCol,grid) and grid[currentRow-1][currentCol] == 0:
+                        grid[currentRow-1][currentCol] = Room.CELL
 
             if length - i <= 2:
                 e = Endpoint(currentRow,currentCol + 1 * sign(changeFactor),Room.HALLWAY,RoomLayout.VERTICAL)
                 endpoints.append(e)
-                # randomForCell = random.randint(1,10)
-                # if randomForCell <= 2:
-                #     e.properties.append(EndpointProperties.ISCELLHALLWAY)
+                randomForCell = random.randint(1,10)
+                if randomForCell <= 2:
+                    e.properties.append(EndpointProperties.ISCELLHALLWAY)
                  
 
     return
