@@ -19,11 +19,12 @@ pygame.display.set_caption("<Your game>")
 clock = pygame.time.Clock()     ## For syncing the FPS
 
 #for cell generation
-CELLWIDTH = 10
+CELLWIDTH = 5
 NUMROWS = HEIGHT // CELLWIDTH
 NUMCOLS = WIDTH // CELLWIDTH
 
 grid = generate.generate(NUMROWS,NUMCOLS)
+
 
 ## Game loop
 running = True

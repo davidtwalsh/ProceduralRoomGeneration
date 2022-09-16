@@ -3,10 +3,15 @@ from roomTypes import Room
 from roomTypes import RoomLayout
 from endpoint import Endpoint
 from endpoint import EndpointProperties
+from perlin import GridPerlinNoise
 
 def generate(NUMROWS, NUMCOLS):
 
+    #create main grid
     grid = [ [0]*NUMCOLS for i in range(NUMROWS)]
+
+    #create perlin noise
+    perlinCells = GridPerlinNoise(grid,10,1)
 
     #Procedural Generation/populate grid
     currentRow = len(grid) // 2
@@ -22,11 +27,11 @@ def generate(NUMROWS, NUMCOLS):
     endpoints.append(e) 
 
     i = 0
-    while endpoints and i < 1:
+    while endpoints:
         endpoint = endpoints.pop(0)
         roomType = endpoint.room
         if roomType == Room.HALLWAY:
-                generateHallway.generateHallway(grid,endpoint,endpoints)
+                generateHallway.generateHallway(grid,endpoint,endpoints,perlinCells)
 
 
         i += 1

@@ -7,7 +7,19 @@ from myMath import isOutOfBounds
 from myMath import isInBounds
 from endpoint import EndpointProperties
 
-def generateOneDirection(grid, endpoint,endpoints,length, isVertical):
+def generateHallway(grid,endpoint,endpoints,perlinCells):
+    
+    length = random.randint(10,30)
+
+    if endpoint.layout == RoomLayout.VERTICAL:
+        generateOneDirection(grid,endpoint,endpoints,length,True,perlinCells)
+    elif endpoint.layout == RoomLayout.HORIZONTAL:
+        generateOneDirection(grid,endpoint,endpoints,length,False,perlinCells)
+                 
+
+    return
+
+def generateOneDirection(grid, endpoint,endpoints,length, isVertical,perlinCells):
 
     currentRow = endpoint.row
     currentCol = endpoint.col
@@ -41,7 +53,7 @@ def generateOneDirection(grid, endpoint,endpoints,length, isVertical):
                     if isInBounds(currentRow,currentCol+1,grid) and grid[currentRow][currentCol+1] == 0:
                         grid[currentRow][currentCol+1] = Room.CELL
             else:
-                if abs(i) % 2 == 0:
+                if i == 0 or (changeFactor > 0 and i % 4 == 0) or (changeFactor < 0 and (i+1) % 4 == 0):
                     if isInBounds(currentRow+1,currentCol,grid) and grid[currentRow+1][currentCol] == 0:
                         grid[currentRow+1][currentCol] = Room.CELL
                     if isInBounds(currentRow-1,currentCol,grid) and grid[currentRow-1][currentCol] == 0:
@@ -55,18 +67,10 @@ def generateOneDirection(grid, endpoint,endpoints,length, isVertical):
             else:
                 e = Endpoint(currentRow,currentCol+ 1 * sign(changeFactor),Room.HALLWAY,RoomLayout.VERTICAL)
             endpoints.append(e)
-            randomForCell = random.randint(1,10)
-            if randomForCell <= 2:
+            # randomForCell = random.randint(1,10)
+            # if randomForCell <= 2:
+            #     e.properties.append(EndpointProperties.ISCELLHALLWAY)
+            randForCell = random.random()
+            if randForCell <= perlinCells.getNoiseAtCoordinates(currentRow,currentCol):
                 e.properties.append(EndpointProperties.ISCELLHALLWAY)
 
-def generateHallway(grid,endpoint,endpoints):
-    
-    length = random.randint(10,30)
-
-    if endpoint.layout == RoomLayout.VERTICAL:
-        generateOneDirection(grid,endpoint,endpoints,length,True)
-    elif endpoint.layout == RoomLayout.HORIZONTAL:
-        generateOneDirection(grid,endpoint,endpoints,length,False)
-                 
-
-    return
